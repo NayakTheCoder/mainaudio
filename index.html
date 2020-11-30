@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AudiBook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        *{
+            text-align: center;
+        }
+        #start{
+            position: absolute;
+            top: 89%;
+            left: 50%;
+            width: 80px;
+            height: 60px;
+          padding-top: 15px;
+            text-align: center;
+            color: red;
+            font-size: 50px;
+            cursor: pointer;
+            border: 0.5px solid black;
+            border-radius: 60px;
+            border: none;
+        }
+        #button{
+            position: absolute;
+            top: 89%;
+            left: 40%;
+            width: 60px;
+            height: 60px;
+          padding-top: 5px;
+            text-align: center;
+            color: red;
+            font-size: 20px;
+            cursor: pointer;
+            border: 0.5px solid black;
+            border-radius: 60px;
+            border: none;
+        }
+        #start:hover{
+            
+    box-shadow: 3px 3px 30px 30px lightgray;
+        }
+        #resume{
+            position: absolute;
+            top: 89.9%;
+            left: 60%;
+            width: 60px;
+            height: 60px;
+          padding-top: 5px;
+            text-align: center;
+            color: red;
+            font-size: 20px;
+            cursor: pointer;
+            border: 0.001px solid black;
+            border-radius: 60px;
+            border: none;
+        }
+        resume:hover{
+            box-shadow: 5px 5px 20px 20px;
+        }
+        #content-box{
+            position: absolute;
+            left: 32.5%;
+            height: 580px;
+            width: 500px;
+            border: 10px solid black;
+           /*background-color: white;*/
+        }
+        h1{
+            position: absolute;
+            top: 0%;
+            left: 30%;
+            border-bottom: 2px solid black;
+        }
+       #para{
+           position: absolute;
+           top: 20%;
+           left: 2%;
+       }
+       #main{
+           display: none;
+         position: absolute;
+         left: 29%;
+         top:15%;
+         width: 600px;
+         height: 450px;
+         border: 6px solid black;
+         box-shadow: 7px 7px 20px 20px lightgray;
+         background-color: white;
+       }
+       #text-area{
+           position: absolute;
+           top: 25%;
+           left: 13%;
+       }
+       #add{
+           position: absolute;
+           top: 76%;
+           left: 39%;
+           width: 120px;
+           height: 70px;
+           border: none;
+           background-color: teal;
+           color: white;
+           font-size: 15px;
+           cursor: pointer;
+       }
+       #remove{
+           position: absolute;
+           top: 1%;
+           right: 2%;
+       }
+       #remove:hover{
+           color: red;
+           cursor: pointer;
+       }
+       #conten{
+           position: absolute;
+           top: 2%;
+           left: 2%;
+           width: 100px;
+           height: 65px;
+           border: none;
+           color: white;
+           background-color: mediumspringgreen;
+           font-size: 20px;
+           cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <div id="content-box">
+   <h1>Audio Book</h1>
+   <br>
+   <br>
+   <br>
+   <div id="para">
+        
+   </div>
+    </div>
+    <span id="start" class="fa">&#xf130;</span> <button id="button" type="button" onclick="pause()" class="" >||</button> <button type="button" id="resume" onclick="resume()">&#9658</button>
+    <br> 
+    <br>
+    <br>
+    <div id="main">
+        <div id="small">
+            <h2>Enter content</h2>
+            <br>
+            <br>
+            <span id="remove" onclick="remove()">x</span>
+            
+            <textarea name=""cols="60" id="text-area" rows="10"></textarea>
+           
+            <button type="button" id="add" onclick="add()">Add-content</button>
+        </div>
+    </div>
+   <button type="button" id="conten" onclick="show()">Content</button>
+</body>
+<script>
+    let main = document.getElementById("main");
+    let small = document.getElementById("small");
+    let textarea = document.getElementById("text-area");
+    let button = document.getElementById("start");
+    let para = document.getElementById("para");
+    let speech = new SpeechSynthesisUtterance();
+    function add(){
+        para.innerHTML = textarea.value;
+        main.style.display = "none";
+    }
+    function show(){
+        main.style.display = "block"
+    }
+    function remove(){
+        main.style.display = "none";
+    }
+    button.addEventListener("click" , function(){
+         speech.rate = 1;
+         speech.volume = 2;
+         speech.text = para.innerHTML;
+         speechSynthesis.speak(speech);
+         speechSynthesis.getVoices();
+         speechSynthesis.rate = 1;
+         button.style.color = "green";
+    })
+    window.onload = function(){
+        speechSynthesis.cancel();
+    }
+    function pause(){
+        speechSynthesis.pause(speech);
+    }
+    function resume(){
+        speechSynthesis.resume(speech);
+    }
+   speech.onend = function(){
+       button.style.color = "red";
+   }
+</script>
+</html>
+
